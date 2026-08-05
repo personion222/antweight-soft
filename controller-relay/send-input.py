@@ -5,20 +5,27 @@ import pygame
 from pygame._sdl2 import controller
 
 
-PORT = "/dev/ttyACM0"
+# will be /dev/ttyACM0 most of the time, find out which with ls /dev
+PORT = "/dev/ttyACM1"
 BAUD = 115200
 
 DEADZONE = 0.1
+STEER_SPEED = 0.5
+
 LMOTOR_INP = pygame.CONTROLLER_AXIS_LEFTY
 RMOTOR_INP = pygame.CONTROLLER_AXIS_RIGHTY
 SERVO_INP = pygame.CONTROLLER_AXIS_TRIGGERRIGHT
 THROTTLE_STICK = pygame.CONTROLLER_AXIS_LEFTY
+STEER_STICK = pygame.CONTROLLER_AXIS_RIGHTX
 
 FREQUENCY = 15
 
 
 def clamp(val):
 	return min(max(val, 0), 1)
+
+def clamp_neg(val):
+	return min(max(val, -1), 1)
 
 def reader(ser):
 	while 1:
@@ -50,8 +57,18 @@ while 1:
 	clock.tick(FREQUENCY)
 	pygame.event.pump()
 
-	left_motor = gamepad.get_axis(LMOTOR_INP) / -32767
-	right_motor = gamepad.get_axis(RMOTOR_INP) / -32767
+	throttle = clamp_neg(gamepad.get_axis(THROTTLE_STICK) / -32767)
+	steer = clamp_neg(gamepad.get_axis(STEER_STICK) / -32767) * STEER_SPEED
+	if abs(throttle) < DEADZONE: throttle = 0
+	if abs(steer) < DEADZONE: steer = 0
+
+	left_motor = throttle
+	right_motor = throttle
+	left_motor -= steer
+	right_motor += steer
+
+	# left_motor = gamepad.get_axis(LMOTOR_INP) / -32767
+	# right_motor = gamepad.get_axis(RMOTOR_INP) / -32767
 	servo = gamepad.get_axis(SERVO_INP) / 32767
 
 	if abs(left_motor) < DEADZONE: left_motor = 0
@@ -69,6 +86,8 @@ while 1:
 	right_motor = int(255 * right_motor)
 	servo = int(255 * servo)
 
+	print(throttle)
+	print(steer)
 	print(left_motor)
 	print(right_motor)
 	print(servo)
