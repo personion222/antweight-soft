@@ -83,7 +83,7 @@ while 1:
 	servo = clamp(servo)
 
 	left_motor = int(255 * left_motor)
-	right_motor = int(255 * right_motor)
+	right_motor = 255 - int(255 * right_motor)
 	servo = int(255 * servo)
 
 	print(throttle)
