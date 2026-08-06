@@ -10,7 +10,7 @@ typedef struct message_struct {
 
 message_struct recv_data;
 
-const int SERVO_PIN = D7;
+const int SERVO_PIN = D8;
 const int MIN_PULSE = 1000;
 const int MAX_PULSE = 2000;
 

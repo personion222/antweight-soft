@@ -1,4 +1,4 @@
-#include <Servo.h>
+#include <ESP32Servo.h>
 
 const int SERVO_PIN = D0;
 

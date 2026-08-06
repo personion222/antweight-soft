@@ -6,7 +6,7 @@ from pygame._sdl2 import controller
 
 
 # will be /dev/ttyACM0 most of the time, find out which with ls /dev
-PORT = "/dev/ttyACM1"
+PORT = "COM13"
 BAUD = 115200
 
 DEADZONE = 0.1
