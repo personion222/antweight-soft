@@ -30,7 +30,7 @@ def clamp_neg(val):
 def reader(ser):
 	while 1:
 		log = ser.readline().decode("utf-8")
-		# if log: print(log)
+		if log: print(log)
 
 
 pygame.init()
