@@ -69,21 +69,21 @@ while 1:
 
 	# left_motor = gamepad.get_axis(LMOTOR_INP) / -32767
 	# right_motor = gamepad.get_axis(RMOTOR_INP) / -32767
-	servo = gamepad.get_axis(SERVO_INP) / 32767 / 1.125
+	servo = gamepad.get_axis(SERVO_INP) / 32767 / 1.25 + 0.05
 
 	if abs(left_motor) < DEADZONE: left_motor = 0
 	if abs(right_motor) < DEADZONE: right_motor = 0
 	if abs(servo) < DEADZONE: servo = 0
 
-	left_motor = (left_motor + 1) / 2
-	right_motor = (right_motor + 1) / 2
+	left_motor = (-left_motor * 0.875 + 1) / 2
+	right_motor = (-right_motor + 1) / 2
 
 	left_motor = clamp(left_motor)
 	right_motor = clamp(right_motor)
 	servo = clamp(servo)
 
 	left_motor = int(255 * left_motor)
-	right_motor = 255 - int(255 * right_motor)
+	right_motor = int(255 * right_motor)
 	servo = int(255 * servo)
 
 	print(throttle)
