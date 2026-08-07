@@ -22,9 +22,12 @@ const int R_DIR_PIN = D3;
 const bool REV_L = false;
 const bool REV_R = false;
 
+volatile unsigned long last_msg = 0;
+
 Servo flipper;
 
 void on_recv(const esp_now_recv_info *info, const uint8_t *data_in, int len) {
+	last_msg = millis();
 	memcpy(&recv_data, data_in, sizeof(recv_data));
 	Serial.println("\nreceived data");
 	Serial.print("lmotor: ");
@@ -59,4 +62,9 @@ void setup() {
 	pinMode(R_DIR_PIN, OUTPUT);
 }
 
-void loop() {}
+void loop() {
+	if (millis() - last_msg > 500) {
+		analogWrite(L_PWM_PIN, 0);
+		analogWrite(R_PWM_PIN, 0);
+	}
+}
