@@ -6,7 +6,7 @@ from pygame._sdl2 import controller
 
 
 # will be /dev/ttyACM0 most of the time, find out which with ls /dev
-PORT = "COM13"
+PORT = "/dev/ttyACM0"
 BAUD = 115200
 
 DEADZONE = 0.1
@@ -69,7 +69,7 @@ while 1:
 
 	# left_motor = gamepad.get_axis(LMOTOR_INP) / -32767
 	# right_motor = gamepad.get_axis(RMOTOR_INP) / -32767
-	servo = gamepad.get_axis(SERVO_INP) / 32767 / 1.25 + 0.05
+	servo = gamepad.get_axis(SERVO_INP) / 32767
 
 	if abs(left_motor) < DEADZONE: left_motor = 0
 	if abs(right_motor) < DEADZONE: right_motor = 0
@@ -84,7 +84,7 @@ while 1:
 
 	left_motor = int(255 * left_motor)
 	right_motor = int(255 * right_motor)
-	servo = int(255 * servo)
+	servo = int(255 * 0.5 * servo)
 
 	print(throttle)
 	print(steer)

@@ -6,15 +6,15 @@ Servo flipper;
 
 void setup() {
   flipper.attach(SERVO_PIN);
-  flipper.writeMicroseconds(500);
+  flipper.writeMicroseconds(1000);
   delay(1000);
 }
 
 void loop() {
-  flipper.writeMicroseconds(600);
+  flipper.writeMicroseconds(1100);
   delay(1000);
-  flipper.writeMicroseconds(700);
+  flipper.writeMicroseconds(1600);
   delay(1000);
-  flipper.writeMicroseconds(800);
+  flipper.writeMicroseconds(1900);
   delay(1000);
 }

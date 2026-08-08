@@ -11,7 +11,7 @@ typedef struct message_struct {
 message_struct recv_data;
 
 const int SERVO_PIN = D8;
-const int MIN_PULSE = 1000;
+const int MIN_PULSE = 950;
 const int MAX_PULSE = 2000;
 
 const int L_DIR_PIN = D0;
